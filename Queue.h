@@ -4,6 +4,7 @@
 
 using namespace std;
 
+//standard item/object
 template <typename T> struct object {
     T value;
     object<T>* next;
@@ -13,6 +14,7 @@ template <typename T> struct object {
     }
 };
 
+// queue class
 template <typename T> class Queue {
 private:
     object<T>* head;
@@ -20,12 +22,14 @@ private:
     int num_items;
 
 public:
+    //constructor
     Queue() {
         head = nullptr;
         tail = nullptr;
         num_items = 0;
     }
 
+    //appends an item to the back of the list
     void push(const T& item) {
         object<T>* new_node = new object<T>(item);
         if (head == nullptr) { // deals with if list is empty
@@ -39,6 +43,7 @@ public:
         num_items++;
     }
 
+    //removes the head node
     void pop() {
         if (head == nullptr) {
             tail = nullptr;
@@ -53,6 +58,7 @@ public:
         num_items--;
     }
 
+    //returns the value in the end of the list
     T front() {
         if (head == nullptr) {
             cout << "Queue is empty." << endl;
@@ -62,8 +68,10 @@ public:
         return head->value;
     }
 
+    //checks whether the list is empty
     bool empty() { return head == nullptr; }
 
+    //prints all values in queue in order
     void printQueue() {
         object<T>* temp = head;
         int i = 0;
@@ -75,18 +83,21 @@ public:
         }
     }
 
+    //moves the first object to the end of the list
     void move_to_rear() { // I am currently filled with mirth at how comically
         // easy this was to code! Grader! Smile!
         push(front());
         pop();
     }
 
+    //swaps two items
     void swap(object<T>* a, object<T>* b) {
         T temp = a->value;
         a->value = b->value;
         b->value = temp;
     }
 
+    //wrapper for the search algorithm
     int last_search(T& target) { return modified_linear_search(target, head, 0, 0); }
 
     //ok so it is technically possible to do the sort this way, but I've realized there's a significantly easier way to do it.
@@ -121,6 +132,7 @@ public:
       }
     */
 
+    //wrapper for the sorting algorithm
     void insertion_wrapper() {
         object<T>* temp1 = head;
         vector<T> v;
@@ -139,6 +151,7 @@ public:
     }
 
 private:
+    //insertion sorting algorithm
     void insertion_sort(vector <T>& num) {
         int i, j;
         T key;
@@ -158,7 +171,7 @@ private:
         }
     }
 
-
+    //searches for the final instance of an item in the list
     int modified_linear_search(T& target, object<T>* pos_first, int spot,
         int max) {
 
